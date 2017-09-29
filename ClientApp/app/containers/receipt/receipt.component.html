@@ -1,0 +1,25 @@
+<h1>{{ title }}</h1>
+
+
+<div class="row">
+  <div class="col-lg-6">
+    <form enctype="multipart/form-data" >
+      <input type="text" class="col-lg-4"  #userName />
+      <input type="number" class="col-lg-4" #age />
+      <input type="text" class="col-lg-4" #lastName />
+      <input class="btn btn-primary col-lg-12" type="submit" value="Submit" (click)="onSubmit(userName.value , age.value, lastName.value )">
+    </form>
+
+  </div>
+
+
+  <div class="col-lg-12">
+    <input id="photo" type="file" />
+    <!-- button to trigger the file upload when submitted -->
+    <button type="button" class="btn btn-success btn-s" (click)="upload()">
+      Upload file
+    </button>
+  </div>
+
+</div>
+
