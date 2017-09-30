@@ -26,11 +26,13 @@ namespace AspCoreServer.Controllers
     {
       //var files = Request.Form.Files;
       var files = fi;
+      if (fi == null)
+        return BadRequest();
 
-      foreach (var file in files)
+      /*foreach (var file in files)
       {
         // to do save
-      }
+      }*/
 
       return Ok();
 
