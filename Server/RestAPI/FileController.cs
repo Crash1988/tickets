@@ -22,9 +22,19 @@ namespace AspCoreServer.Controllers
     }
     
     [HttpPost]
-    public async Task Post([FromBody]IFormFile file)
+    public async Task<IActionResult> Post([FromBody] IFormFile fi)
     {
-      if (file == null) throw new Exception("File is null");
+      //var files = Request.Form.Files;
+      var files = fi;
+
+      foreach (var file in files)
+      {
+        // to do save
+      }
+
+      return Ok();
+
+      /*if (file == null) throw new Exception("File is null");
       if (file.Length == 0) throw new Exception("File is empty");
 
       using (Stream stream = file.OpenReadStream())
@@ -34,7 +44,8 @@ namespace AspCoreServer.Controllers
           var fileContent = binaryReader.ReadBytes((int)file.Length);
           //await _uploadService.AddFile(fileContent, file.FileName, file.ContentType);//just save the file
         }
-      }
+      }*/
+
 
     }
   }

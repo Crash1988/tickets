@@ -19,10 +19,10 @@ export class ReceiptService {
     }
     addFile(formData: FormData): Observable<any> {
         let headers = new Headers();
-        headers.append('Content-Type', 'multipart/form-data');
+        //headers.append('Content-Type', 'multipart/form-data');
         headers.append('Accept', 'application/json');
         let opts: RequestOptionsArgs = { headers: headers };
 
-        return this.http.post(`${this.baseUrl}/api/receipts`, formData, opts);
+        return this.http.post(`${this.baseUrl}/api/file`, formData, opts);
     }
 }

@@ -46,14 +46,8 @@ export class ReceiptComponent implements OnInit {
         if (fileCount > 0) { // a file was selected
             //append the key name 'file' with the first file in the element
             formData.append('file', inputEl.files.item(0), inputEl.files.item(0).name);
-            this.receiptService.addFile(formData).subscribe(result => {
-                console.log('Post user result: ', result);
-                /* if (result.ok) {
-                     this.users.push(result.json());
-                 }*/
-            }, error => {
-                //console.log(`There was an issue. ${error._body}.`);
-            });
+            this.receiptService.addFile(formData).subscribe(r => console.log(r));
+
 
         }
 
