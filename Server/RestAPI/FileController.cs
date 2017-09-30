@@ -22,7 +22,7 @@ namespace AspCoreServer.Controllers
     }
     
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] IFormFile fi)
+    public async Task<IActionResult> Post([FromBody] List<IFormFile> fi)
     {
       //var files = Request.Form.Files;
       var files = fi;

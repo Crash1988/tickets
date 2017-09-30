@@ -23,6 +23,6 @@ export class ReceiptService {
         headers.append('Accept', 'application/json');
         let opts: RequestOptionsArgs = { headers: headers };
 
-        return this.http.post(`${this.baseUrl}/api/file`, formData, opts);
+        return this.http.post(`${this.baseUrl}/api/file`, formData);
     }
 }
