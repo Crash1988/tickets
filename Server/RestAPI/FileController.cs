@@ -1,5 +1,6 @@
 using AspCoreServer.Data;
 using AspCoreServer.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AspCoreServer.Controllers
@@ -15,10 +17,12 @@ namespace AspCoreServer.Controllers
   public class FileController : Controller
   {
     private readonly SpaDbContext _context;
+    private IHostingEnvironment _env;
 
-    public FileController(SpaDbContext context)
+    public FileController(SpaDbContext context, IHostingEnvironment env)
     {
       _context = context;
+      _env = env;
     }
     
     [HttpPost]
@@ -44,9 +48,23 @@ namespace AspCoreServer.Controllers
       {
         using (var binaryReader = new BinaryReader(stream))
         {
-          var fileContent = binaryReader.ReadBytes((int)file.Length);
-          // file.OpenReadStream();
+          try
+          {
+            var fileContent = binaryReader.ReadBytes((int)file.Length);
+
+            var filePath = System.IO.Path.Combine(_env.WebRootPath + "/receipts", file.FileName);
+            await System.IO.File.WriteAllBytesAsync(filePath, fileContent);
+
+          }
+          catch (Exception)
+          {
+
+            return BadRequest();
+          }
           
+         // fil = "asdas";
+          // file.OpenReadStream();
+
           //await _uploadService.AddFile(fileContent, file.FileName, file.ContentType);//just save the file
         }
       }
