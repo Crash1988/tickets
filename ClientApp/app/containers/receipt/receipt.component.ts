@@ -1,24 +1,39 @@
 import {
     Component, OnInit,
     // animation imports
-    trigger, state, style, transition, animate, Inject, ElementRef
+    trigger, state, style, transition, animate,
+    Inject, ElementRef, 
 } from '@angular/core';
 import { ReceiptService } from '../../shared/receipt.service';
-
+import { DragnDropDirective } from '../../directives/dragndrop.directive'
 
 @Component({
     selector: 'app-receipt',
-    templateUrl: './receipt.component.html'
+    templateUrl: './receipt.component.html',
+    styleUrls: ['./receipt.component.scss']
+
 })
 export class ReceiptComponent implements OnInit {
 
-    title: string = 'Receipts Managements';
+    title: string = 'Receipts';
+    private fileList: any = [];
+    private invalidFiles: any = [];
+
 
     // Use "constructor"s only for dependency injection
     constructor(
         private receiptService: ReceiptService,
         private el: ElementRef
     ) { }
+
+    onFilesChange(fileList: Array<File>) {
+        this.fileList = fileList;
+    }
+
+    filesInvalidEmiter(invalidFiles: Array<File>) {
+        this.invalidFiles = invalidFiles;
+    }
+
 
     // Here you want to handle anything with @Input()'s @Output()'s
     // Data retrieval / etc - this is when the Component is "ready" and wired up

@@ -14,11 +14,30 @@
   </div>
       -->
 
-
+  
   <div class="col-lg-12">
+
+    <div class="dropzone" dragnDrop (filesChangeEmiter)="onFilesChange($event)" [allowed_extensions]="['png', 'jpg', 'bmp']" >
+      <ul>
+        <li *ngFor="let file of fileList">
+          {{ file.name }}
+        </li>
+      </ul>
+
+      <ul class="invalid">
+        <li *ngFor="let file of invalidFiles">
+          {{ file.name }}
+        </li>
+      </ul>
+
+      <div class="text-wrapper">
+        <div class="centered">  Drop Yor Receipts here!! </div>
+      </div>
+    </div>
+
     <input id="photo" type="file" />
     <!-- button to trigger the file upload when submitted -->
-    <button type="button" class="btn btn-success " (click)="upload()"> Upload file </button>
+    <button type="button" class="btn btn-success " (click)="upload()"  accept="image/x-png,image/gif,image/jpeg" > Upload Image </button>
   </div>
 
 </div>

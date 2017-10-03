@@ -28,6 +28,8 @@ import { ConnectionResolver } from './shared/route.resolver';
 import { ORIGIN_URL } from './shared/constants/baseurl.constants';
 import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
 
+import { DragnDropDirective } from './directives/dragndrop.directive'
+
 export function createTranslateLoader(http: Http, baseHref) {
     // Temporary Azure hack
     if (baseHref === null && typeof window !== 'undefined') {
@@ -48,7 +50,8 @@ export function createTranslateLoader(http: Http, baseHref) {
         ReceiptComponent,
         ChatComponent,
         NotFoundComponent,
-        NgxBootstrapComponent
+        NgxBootstrapComponent,
+        DragnDropDirective,
     ],
     imports: [
         CommonModule,
