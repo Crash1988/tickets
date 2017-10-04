@@ -11,9 +11,9 @@ namespace AspCoreServer.Controllers
   [Route("api/[controller]")]
   public class ReceiptsController : Controller
   {
-    private readonly SpaDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public ReceiptsController(SpaDbContext context)
+    public ReceiptsController(ApplicationDbContext context)
     {
       _context = context;
     }

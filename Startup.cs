@@ -9,48 +9,59 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using AspCoreServer.Data;
 using Swashbuckle.AspNetCore.Swagger;
+using AspCoreServer.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Reflection;
+using Microsoft.AspNetCore;
 
 namespace AspCoreServer
 {
   public class Startup
   {
 
-    public static void Main(string[] args)
+    
+    public static void Main(String[] args)
     {
-      var host = new WebHostBuilder()
-          .UseKestrel()
-          .UseContentRoot(Directory.GetCurrentDirectory())
-          .UseIISIntegration()
-          .UseStartup<Startup>()
-          .Build();
-
-      host.Run();
-    }
-    public Startup(IHostingEnvironment env)
-    {
-      var builder = new ConfigurationBuilder()
-          .SetBasePath(env.ContentRootPath)
-          .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-          .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-          .AddEnvironmentVariables();
-      Configuration = builder.Build();
+      Startup.BuildWebHost(args).Run();
     }
 
-    public IConfigurationRoot Configuration { get; }
+    public static IWebHost BuildWebHost(String[] args) =>
+        WebHost.CreateDefaultBuilder(args)
+               .UseKestrel()
+               .UseUrls("http://*:8000")
+               .UseStartup<Startup>()
+               .Build();
+
+
+    public Startup(IConfiguration configuration)
+    {
+      Configuration = configuration;
+      
+    }
+
+    public IConfiguration Configuration { get; }
+
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
       // Add framework services.
-      services.AddCors();
+      services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+      services.AddIdentity<ApplicationUser, IdentityRole>()
+          .AddEntityFrameworkStores<ApplicationDbContext>()
+          .AddDefaultTokenProviders();
+
+      //services.AddCors();
       services.AddMvc();
       services.AddNodeServices();
 
-      var connectionStringBuilder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = "spa.db" };
-      var connectionString = connectionStringBuilder.ToString();
+      //var connectionStringBuilder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = "spa.db" };///conection string for sqlite
+      //var connectionString = connectionStringBuilder.ToString();
 
-      services.AddDbContext<SpaDbContext>(options =>
-          options.UseSqlite(connectionString));
+      //services.AddDbContext<SpaDbContext>(options =>
+      //     options.UseSqlite(connectionString));
 
       // Register the Swagger generator, defining one or more Swagger documents
       services.AddSwaggerGen(c =>
@@ -60,14 +71,14 @@ namespace AspCoreServer
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, SpaDbContext context)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
     {
       loggerFactory.AddConsole(Configuration.GetSection("Logging"));
       loggerFactory.AddDebug();
 
       app.UseStaticFiles();
 
-      DbInitializer.Initialize(context);
+     // DbInitializer.Initialize(context);
 
       if (env.IsDevelopment())
       {
@@ -85,12 +96,13 @@ namespace AspCoreServer
 
         // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
 
-        app.UseCors(builder => builder
+       /**
+        *app.UseCors(builder => builder
           .AllowAnyOrigin()
           .AllowAnyMethod()
           .AllowAnyHeader()
           .AllowCredentials());
-
+*/
         app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger", StringComparison.OrdinalIgnoreCase), builder =>
         {
           builder.UseMvc(routes =>
@@ -102,12 +114,12 @@ namespace AspCoreServer
         });
       }
       else
-      {
+      {/*
         app.UseCors(builder => builder
           .AllowAnyOrigin()
           .AllowAnyMethod()
           .AllowAnyHeader()
-          .AllowCredentials());
+          .AllowCredentials());*/
 
         app.UseMvc(routes =>
         {

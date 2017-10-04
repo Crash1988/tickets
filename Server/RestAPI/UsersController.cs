@@ -11,9 +11,9 @@ namespace AspCoreServer.Controllers
   [Route("api/[controller]")]
   public class UsersController : Controller
   {
-    private readonly SpaDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public UsersController(SpaDbContext context)
+    public UsersController(ApplicationDbContext context)
     {
       _context = context;
     }
@@ -21,7 +21,7 @@ namespace AspCoreServer.Controllers
     [HttpGet]
     public async Task<IActionResult> Get(int currentPageNo = 1, int pageSize = 20)
     {
-      var users = await _context.User
+      /*var users = await _context.User
           .OrderByDescending(u => u.EntryTime)
           .Skip((currentPageNo - 1) * pageSize)
           .Take(pageSize)
@@ -34,13 +34,14 @@ namespace AspCoreServer.Controllers
       else
       {
         return Ok(users);
-      }
+      }*/
+      return Ok();
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-      var user = await _context.User
+      /*var user = await _context.User
           .Where(u => u.ID == id)
           .AsNoTracking()
           .SingleOrDefaultAsync(m => m.ID == id);
@@ -52,13 +53,14 @@ namespace AspCoreServer.Controllers
       else
       {
         return Ok(user);
-      }
+      }*/
+      return Ok();
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody]User user)
     {
-      
+      /*
       if (!string.IsNullOrEmpty(user.Name))
       {
         _context.Add(user);
@@ -68,12 +70,13 @@ namespace AspCoreServer.Controllers
       else
       {
         return BadRequest("User's name was not given");
-      }
+      }*/
+      return Ok();
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody]User userUpdateValue)
-    {
+    {/*
       try
       {
         userUpdateValue.EntryTime = DateTime.Now;
@@ -100,12 +103,13 @@ namespace AspCoreServer.Controllers
             "Try again, and if the problem persists, " +
             "see your system administrator.");
         return NotFound("User not Found");
-      }
+      }*/
+      return Ok();
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
-    {
+    {/*
       var userToRemove = await _context.User
           .AsNoTracking()
       .SingleOrDefaultAsync(m => m.ID == id);
@@ -118,7 +122,8 @@ namespace AspCoreServer.Controllers
         _context.User.Remove(userToRemove);
         await _context.SaveChangesAsync();
         return Ok("Deleted user - " + userToRemove.Name);
-      }
+      }*/
+      return Ok();
     }
   }
 }

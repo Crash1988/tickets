@@ -16,10 +16,10 @@ namespace AspCoreServer.Controllers
   [Route("api/[controller]")]
   public class FileController : Controller
   {
-    private readonly SpaDbContext _context;
+    private readonly ApplicationDbContext _context;
     private IHostingEnvironment _env;
 
-    public FileController(SpaDbContext context, IHostingEnvironment env)
+    public FileController(ApplicationDbContext context, IHostingEnvironment env)
     {
       _context = context;
       _env = env;
