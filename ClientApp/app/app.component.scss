@@ -1,14 +1,12 @@
-﻿$navbar-default-bg: #312312;
+$navbar-default-bg: #312312;
 $light-orange: #ff8c00;
 $navbar-default-color: $light-orange;
 
 /* Import Bootstrap & Fonts */
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
-
-
-
-
+@import '~font-awesome/css/font-awesome.css';
+//@import "~font-awesome/css/font-awesome";
 /* *** Overall APP Styling can go here ***
    --------------------------------------------
    Note: This Component has ViewEncapsulation.None so the styles will bleed out

@@ -22,7 +22,7 @@ export class DragnDropDirective {
     }
 
 
-    @HostListener('dragLeave', ['$event']) onDragLeave(evt) {
+    @HostListener('dragleave', ['$event']) onDragLeave(evt) {
         evt.preventDefault();
         evt.stopPropagation();
         let files = evt.dataTransfer.files;
@@ -47,8 +47,8 @@ export class DragnDropDirective {
                     } else {
                         invalid_files.push(file);
                     }
-                    }
-                
+                }
+                                
                 this.filesChangeEmiter.emit(valid_files);
                 this.filesInvalidEmiter.emit(invalid_files);
             }

@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HomeComponent implements OnInit {
 
-    title: string = 'Angular 4.0 Universal & ASP.NET Core 2.0 advanced starter-kit';
+    title: string = 'Tickets and Receipts managements';
 
     // Use "constructor"s only for dependency injection
     constructor(

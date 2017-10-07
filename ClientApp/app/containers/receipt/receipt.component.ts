@@ -30,7 +30,7 @@ export class ReceiptComponent implements OnInit {
         this.fileList = fileList;
     }
 
-    filesInvalidEmiter(invalidFiles: Array<File>) {
+    onInvalidFilesAdded(invalidFiles: Array<File>) {
         this.invalidFiles = invalidFiles;
     }
 
@@ -66,6 +66,15 @@ export class ReceiptComponent implements OnInit {
 
         }
 
+    }
+    deleteInvalidItem(i: number) {
+        console.log("delete index: " + i);
+    }
+
+
+    deleteValidItem(i: number) {
+        console.log("delete index: " + i + " " + this.fileList[i].name);
+        this.fileList.splice(i, 1);
     }
 
 }

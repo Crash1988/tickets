@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace AspCoreServer.Models
 {
     public class ApplicationUser : IdentityUser
-  {
+    {
+    string name;
+    string lastName;
     }
 }
