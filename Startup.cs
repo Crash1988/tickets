@@ -13,6 +13,8 @@ using AspCoreServer.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 using Microsoft.AspNetCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace AspCoreServer
 {
@@ -56,6 +58,20 @@ namespace AspCoreServer
           .AddDefaultTokenProviders();
 
       //services.AddCors();
+      services.AddAuthentication()
+          .AddJwtBearer(cfg =>
+          {
+            cfg.RequireHttpsMetadata = false;
+            cfg.SaveToken = true;
+
+            cfg.TokenValidationParameters = new TokenValidationParameters()
+            {
+              ValidIssuer = Configuration["Tokens:Issuer"],
+              ValidAudience = Configuration["Tokens:Issuer"],
+              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+            };
+
+          });
       services.AddMvc();
       services.AddNodeServices();
 
@@ -79,8 +95,9 @@ namespace AspCoreServer
       loggerFactory.AddDebug();
 
       app.UseStaticFiles();
+      app.UseAuthentication();
 
-     // DbInitializer.Initialize(context);
+      // DbInitializer.Initialize(context);
 
       if (env.IsDevelopment())
       {

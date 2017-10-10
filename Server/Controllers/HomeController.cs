@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AspCoreServer.Controllers
 {
+  
   public class HomeController : Controller
   {
     [HttpGet]

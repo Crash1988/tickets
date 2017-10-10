@@ -41,6 +41,7 @@
     <Content Remove="ClientApp\**" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Server\Classes\" />
     <Folder Include="wwwroot\receipts\" />
   </ItemGroup>
   <ItemGroup>

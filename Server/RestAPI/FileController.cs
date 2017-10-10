@@ -1,5 +1,6 @@
 using AspCoreServer.Data;
 using AspCoreServer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,8 @@ namespace AspCoreServer.Controllers
       _context = context;
       _env = env;
     }
-    
+
+    //[Authorize]
     [HttpPost]
     public async Task<IActionResult> Post()
     {

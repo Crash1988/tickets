@@ -1,5 +1,6 @@
 using AspCoreServer.Data;
 using AspCoreServer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,9 +16,10 @@ namespace AspCoreServer.Controllers
 
     public UsersController(ApplicationDbContext context)
     {
+
       _context = context;
     }
-
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> Get(int currentPageNo = 1, int pageSize = 20)
     {
