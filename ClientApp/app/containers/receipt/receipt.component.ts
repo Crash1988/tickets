@@ -28,6 +28,23 @@ export class ReceiptComponent {
         private el: ElementRef
     ) { }
 
+    onFileAdded(event: any) {
+        let files = event.srcElement.files;
+        let allowed_extensions = ['png', 'jpg', 'bmp'];
+        if (files.length > 0) {
+            let file = files[0];
+            let ext = file.name.split('.')[file.name.split('.').length - 1];
+            if (allowed_extensions.lastIndexOf(ext) != -1) {
+                this.fileList.push(file);
+            } else {
+                this.invalidFiles.push(file);
+            }
+        }
+        //this.fileList.push(files[0]);
+        //console.log(files);
+        
+    }
+
     onFilesChange(fileList: Array<File>) {
         this.fileList = fileList;
     }
@@ -36,18 +53,7 @@ export class ReceiptComponent {
         this.invalidFiles = invalidFiles;
     }
 
-
-    /*onSubmit(userName, age, lastName) {
-        
-        this.receiptService.addReceipt(userName, age, lastName).subscribe(result => {
-            console.log('Post user result: ', result);
-            if (result.ok) {
-                this.users.push(result.json());
-            }
-        }, error => {
-            console.log(`There was an issue. ${error._body}.`);
-        });
-    }*/
+    
 
     upload() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
