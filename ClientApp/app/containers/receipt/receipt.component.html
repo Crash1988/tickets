@@ -28,8 +28,7 @@
 
       <ul class="invalid">
         <li *ngFor="let file of invalidFiles; let i = index">
-          {{ file.name  + " " + i}}
-          <button type="button" class="btn btn-success " (click)="deleteInvalidItem(i)" > X </button>
+          {{ file.name  }}
         </li>
       </ul>
 
@@ -43,6 +42,9 @@
       <i class="fa fa-cloud-upload"></i> 
     </label>
     <input id="file-upload" type="file" class="uploadBtn" />
+
+
+    <input class="btn btn-success col-lg-12" type="submit" value="Submit" (click)="upload( )">
   </div>
 
 </div>

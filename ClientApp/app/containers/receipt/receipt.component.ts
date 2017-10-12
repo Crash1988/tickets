@@ -4,6 +4,7 @@ import {
     trigger, state, style, transition, animate,
     Inject, ElementRef, 
 } from '@angular/core';
+import { FileService } from '../../shared/file.service';
 import { ReceiptService } from '../../shared/receipt.service';
 import { DragnDropDirective } from '../../directives/dragndrop.directive'
 
@@ -23,6 +24,7 @@ export class ReceiptComponent implements OnInit {
     // Use "constructor"s only for dependency injection
     constructor(
         private receiptService: ReceiptService,
+        private fileService: FileService,
         private el: ElementRef
     ) { }
 
@@ -55,25 +57,33 @@ export class ReceiptComponent implements OnInit {
     upload() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
         //get the total amount of files attached to the file input.
-        let fileCount: number = inputEl.files.length;
         //create a new fromdata instance
         let formData = new FormData();
-        if (fileCount > 0) { // a file was selected
-            //append the key name 'file' with the first file in the element
-            formData.append('file', inputEl.files.item(0), inputEl.files.item(0).name);
-            this.receiptService.addFile(formData).subscribe(r => console.log(r));
+        if (this.fileList.length > 0) { // a file was selected
+            //append the key name 'file' with the file  element
+            this.fileList.forEach(function (elem) {
+                formData.append('file', elem, elem.name);
+            });
+            console.log(formData);
+            this.fileService.addFile(formData).subscribe(r => {
+                if (r.ok) {
+                    this.fileList = [];
+                    this.invalidFiles = [];
+                    alert("All Receipts where uploaded!");
+                }
+
+            }, error => {
+                console.log(`There was an issue. ${error._body}.`);
+            });
+
 
 
         }
 
     }
-    deleteInvalidItem(i: number) {
-        console.log("delete index: " + i);
-    }
 
 
     deleteValidItem(i: number) {
-        console.log("delete index: " + i + " " + this.fileList[i].name);
         this.fileList.splice(i, 1);
     }
 

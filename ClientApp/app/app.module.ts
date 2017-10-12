@@ -24,6 +24,7 @@ import { NgxBootstrapComponent } from './containers/ngx-bootstrap-demo/ngx-boots
 import { LinkService } from './shared/link.service';
 import { UserService } from './shared/user.service';
 import { ReceiptService } from './shared/receipt.service';
+import { FileService } from './shared/file.service';
 import { ConnectionResolver } from './shared/route.resolver';
 import { ORIGIN_URL } from './shared/constants/baseurl.constants';
 import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
@@ -176,6 +177,7 @@ export function createTranslateLoader(http: Http, baseHref) {
         LinkService,
         UserService,
         ReceiptService,
+        FileService,
         ConnectionResolver,
         TranslateModule
     ]
