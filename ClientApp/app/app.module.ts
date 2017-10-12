@@ -153,8 +153,6 @@ export function createTranslateLoader(http: Http, baseHref) {
                 }
             },
 
-            { path: 'lazy', loadChildren: './containers/lazy/lazy.module#LazyModule'},
-
             {
                 path: '**', component: NotFoundComponent,
                 data: {

@@ -14,7 +14,7 @@ import { DragnDropDirective } from '../../directives/dragndrop.directive'
     styleUrls: ['./receipt.component.scss']
 
 })
-export class ReceiptComponent implements OnInit {
+export class ReceiptComponent {
 
     title: string = 'Receipts';
     private fileList: any = [];
@@ -37,22 +37,17 @@ export class ReceiptComponent implements OnInit {
     }
 
 
-    // Here you want to handle anything with @Input()'s @Output()'s
-    // Data retrieval / etc - this is when the Component is "ready" and wired up
-    ngOnInit() {
-
-    }
-    onSubmit(userName, age, lastName) {
+    /*onSubmit(userName, age, lastName) {
         
         this.receiptService.addReceipt(userName, age, lastName).subscribe(result => {
             console.log('Post user result: ', result);
-           /* if (result.ok) {
+            if (result.ok) {
                 this.users.push(result.json());
-            }*/
+            }
         }, error => {
             console.log(`There was an issue. ${error._body}.`);
         });
-    }
+    }*/
 
     upload() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
@@ -64,7 +59,6 @@ export class ReceiptComponent implements OnInit {
             this.fileList.forEach(function (elem) {
                 formData.append('file', elem, elem.name);
             });
-            console.log(formData);
             this.fileService.addFile(formData).subscribe(r => {
                 if (r.ok) {
                     this.fileList = [];
