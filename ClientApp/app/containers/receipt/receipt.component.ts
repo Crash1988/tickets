@@ -37,11 +37,10 @@ export class ReceiptComponent {
             if (allowed_extensions.lastIndexOf(ext) != -1) {
                 this.fileList.push(file);
             } else {
-                this.invalidFiles.push(file);
+              alert("Invalid file type");
+                //this.invalidFiles.push(file);
             }
         }
-        //this.fileList.push(files[0]);
-        //console.log(files);
         
     }
 
@@ -69,7 +68,7 @@ export class ReceiptComponent {
                 if (r.ok) {
                     this.fileList = [];
                     this.invalidFiles = [];
-                    alert("All Receipts where uploaded!");
+                    alert("All images were uploaded successfully!");
                 }
 
             }, error => {

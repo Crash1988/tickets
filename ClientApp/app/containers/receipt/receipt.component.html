@@ -22,7 +22,7 @@
         <li *ngFor="let file of fileList; let i = index">
           {{ file.name }}
 
-          <button type="button" class=" " (click)="deleteValidItem(i)"> X </button>
+          <button type="button" class="btn btn-link " style="text-decoration: none !important; color:darkred;" (click)="deleteValidItem(i)"> X </button>
         </li>
       </ul>
 
@@ -33,18 +33,20 @@
       </ul>
 
       <div class="text-wrapper">
-        <div class="centered">  Drop your Receipts here!! </div>
+        <div class="centered"> Drag and drop your receipts here!! </div>
       </div>
     </div>
 
+    <div class="col-sm-12">
+      <label for="file-upload" class="custom-file-upload  btn btn-info col-sm-2" style="float:left;">
+        <i class="fa fa-file-image-o"> Browse</i>
+      </label>
+      <input id="file-upload" class="btn  uploadBtn" type="file" (change)="onFileAdded($event)" />
+      
+
+      <button class="btn btn-info col-sm-2" style="float:right" type="submit" value="Upload" (click)="upload( )" [disabled]="fileList.length <=0"><i class="fa fa-cloud-upload"> Upload</i></button>
+    </div>
     
-    <label for="file-upload" class="custom-file-upload">
-      <i class="fa fa-cloud-upload"></i> 
-    </label>
-    <input id="file-upload" type="file" (change)="onFileAdded($event)" class="uploadBtn" />
-
-
-    <input class="btn btn-success col-lg-2" type="submit" value="Submit" (click)="upload( )">
   </div>
 
 </div>
