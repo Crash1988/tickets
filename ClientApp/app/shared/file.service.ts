@@ -14,8 +14,6 @@ export class FileService {
 
     }
     addFile(formData: FormData): Observable<any> {
-        var i = localStorage.getItem("auth");
-        console.log(i );
         return this.http.post(`${this.baseUrl}/api/files`, formData);
     }
 }

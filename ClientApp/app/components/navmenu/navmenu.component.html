@@ -24,6 +24,11 @@
             <span class='glyphicon glyphicon-th-large'></span> {{ 'Receipts' | translate }}
           </a>
         </li>
+        <li [routerLinkActive]="['link-active']" (click)="collapseMenu()">
+          <a [routerLink]="['/login']">
+            <span class='glyphicon glyphicon-th-large'></span> {{ 'Login' | translate }}
+          </a>
+        </li>
         <!--
 
         <li [routerLinkActive]="['link-active']" (click)="collapseMenu()">

@@ -19,6 +19,8 @@ export class ReceiptComponent {
     title: string = 'Receipts';
     private fileList: any = [];
     private invalidFiles: any = [];
+    private showMessage = false;
+    private message = "dasdasdas";
 
 
     // Use "constructor"s only for dependency injection
@@ -38,14 +40,19 @@ export class ReceiptComponent {
                 this.fileList.push(file);
             } else {
               alert("Invalid file type");
-                //this.invalidFiles.push(file);
+              //this.invalidFiles.push(file);
+              this.showMessage = true;
+              this.message = " warning: Invalid file type";
             }
         }
         
     }
 
     onFilesChange(fileList: Array<File>) {
-        this.fileList = fileList;
+      for (var i = 0; i < fileList.length; i++) {
+        this.fileList.push( fileList[i]);
+      }
+        
     }
 
     onInvalidFilesAdded(invalidFiles: Array<File>) {
@@ -68,10 +75,14 @@ export class ReceiptComponent {
                 if (r.ok) {
                     this.fileList = [];
                     this.invalidFiles = [];
-                    alert("All images were uploaded successfully!");
+                    //alert("All images were uploaded successfully!");
+                    this.showMessage = true;
+                    this.message = "All images were successfully uploaded!";
                 }
 
             }, error => {
+                this.showMessage = true;
+                this.message = "There was a error uploading the images";
                 console.log(`There was an issue. ${error._body}.`);
             });
 

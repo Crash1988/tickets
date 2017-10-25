@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, Inject, ViewEncapsulation, RendererFactory2, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewEncapsulation, RendererFactory2, PLATFORM_ID } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
 import { Meta, Title, DOCUMENT, MetaDefinition } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
@@ -18,7 +18,7 @@ import { REQUEST } from './shared/constants/request';
 export class AppComponent implements OnInit, OnDestroy {
 
     // This will go at the END of your title for example "Home - Angular Universal..." <-- after the dash (-)
-    private endPageTitle: string = 'Angular Universal and ASP.NET Core Starter';
+    private endPageTitle: string = '';
     // If no Title is provided, we'll use a default one before the dash(-)
     private defaultPageTitle: string = 'My App';
 

@@ -61,11 +61,17 @@ namespace AspCoreServer
       services.AddAuthentication()
           .AddJwtBearer(cfg =>
           {
+            cfg.Authority = Configuration["Tokens:Authority"];//check this config
             cfg.RequireHttpsMetadata = false;
             cfg.SaveToken = true;
 
             cfg.TokenValidationParameters = new TokenValidationParameters()
             {
+              ValidateIssuer = true,
+              ValidateAudience = true,
+              ValidateLifetime = true,
+              ValidateIssuerSigningKey = true,
+
               ValidIssuer = Configuration["Tokens:Issuer"],
               ValidAudience = Configuration["Tokens:Issuer"],
               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))

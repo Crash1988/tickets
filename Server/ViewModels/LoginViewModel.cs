@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,14 +14,16 @@ namespace Asp2017.Server.ViewModels
       {
 
       }
-      #endregion Constructor
+    #endregion Constructor
 
-      #region Properties
-      public string UserName { get; set; }
-      public string Password { get; set; }
-      public string PasswordNew { get; set; }
-      public string Email { get; set; }
-      public string DisplayName { get; set; }
-      #endregion Properties
+    #region Properties
+    [Required]
+    [EmailAddress]
+    public string Username { get; set; }
+
+    [Required]
+    [DataType(DataType.Password)]
+    public string Password { get; set; }
+    #endregion Properties
   }
 }

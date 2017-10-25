@@ -2,7 +2,7 @@ import { NgModule, Inject } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpModule, Http } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Ng2BootstrapModule } from 'ngx-bootstrap';
 
@@ -17,7 +17,7 @@ import { ReceiptComponent } from './containers/receipt/receipt.component';
 import { UsersComponent } from './containers/users/users.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { CounterComponent } from './containers/counter/counter.component';
-import { ChatComponent } from './containers/chat/chat.component';
+import { LoginComponent } from './containers/login/login.component';
 import { NotFoundComponent } from './containers/not-found/not-found.component';
 import { NgxBootstrapComponent } from './containers/ngx-bootstrap-demo/ngx-bootstrap.component';
 
@@ -28,6 +28,9 @@ import { FileService } from './shared/file.service';
 import { ConnectionResolver } from './shared/route.resolver';
 import { ORIGIN_URL } from './shared/constants/baseurl.constants';
 import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
+import { AuthService } from './shared/auth.service';
+import { AuthHttp } from './shared/constants/auth.http';
+
 
 import { DragnDropDirective } from './directives/dragndrop.directive'
 
@@ -49,15 +52,18 @@ export function createTranslateLoader(http: Http, baseHref) {
         UserDetailComponent,
         HomeComponent,
         ReceiptComponent,
-        ChatComponent,
         NotFoundComponent,
         NgxBootstrapComponent,
+        LoginComponent,
         DragnDropDirective,
-    ],
+
+  ],
+    exports: [ReactiveFormsModule],
     imports: [
         CommonModule,
         HttpModule,
-        FormsModule,
+      FormsModule,
+      ReactiveFormsModule,
         Ng2BootstrapModule.forRoot(), // You could also split this up if you don't want the Entire Module imported
 
         TransferHttpModule, // Our Http TransferData method
@@ -107,15 +113,27 @@ export function createTranslateLoader(http: Http, baseHref) {
                 }
             },
             {
-                path: 'receipt', component: ReceiptComponent,
-                data: {
-                    title: 'Receipts',
-                    meta: [{ name: 'description', content: 'This is an receipts page Description!' }],
-                    links: [
-                        { rel: 'canonical', href: 'http://blogs.example.com/counter/something' },
-                        { rel: 'alternate', hreflang: 'es', href: 'http://es.example.com/counter' }
-                    ]
-                }
+              path: 'receipt', component: ReceiptComponent,
+              data: {
+                title: 'Receipts',
+                meta: [{ name: 'description', content: 'This is an receipts page Description!' }],
+                links: [
+                  { rel: 'canonical', href: 'http://blogs.example.com/counter/something' },
+                  { rel: 'alternate', hreflang: 'es', href: 'http://es.example.com/counter' }
+                ]
+              }
+            },
+
+            {
+              path: 'login', component: LoginComponent,
+              data: {
+                title: 'Login',
+                meta: [{ name: 'description', content: 'This is the login page!' }],
+                links: [
+                  { rel: 'canonical', href: 'http://blogs.example.com/counter/something' },
+                  { rel: 'alternate', hreflang: 'es', href: 'http://es.example.com/counter' }
+                ]
+              }
             },
             {
                 path: 'users', component: UsersComponent,
@@ -128,19 +146,7 @@ export function createTranslateLoader(http: Http, baseHref) {
                     ]
                 }
             },
-            {
-                path: 'chat', component: ChatComponent,
-                // Wait until the resolve is finished before loading the Route
-                resolve: { connection: ConnectionResolver },
-                data: {
-                    title: 'SignalR chat example',
-                    meta: [{ name: 'description', content: 'This is an Chat page Description!' }],
-                    links: [
-                        { rel: 'canonical', href: 'http://blogs.example.com/chat/something' },
-                        { rel: 'alternate', hreflang: 'es', href: 'http://es.example.com/chat' }
-                    ]
-                }
-            },
+            
             {
                 path: 'ngx-bootstrap', component: NgxBootstrapComponent,
                 data: {
@@ -177,7 +183,11 @@ export function createTranslateLoader(http: Http, baseHref) {
         ReceiptService,
         FileService,
         ConnectionResolver,
-        TranslateModule
+        TranslateModule,
+        AuthService,
+        AuthHttp
+
+
     ]
 })
 export class AppModuleShared {

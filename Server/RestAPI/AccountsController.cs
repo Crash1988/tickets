@@ -37,14 +37,17 @@ namespace Asp2017.Server.RestAPI
       this._config = config;
 
     }
-
     [AllowAnonymous]
+    [Route("~/api/accounts/createtoken")]
     [HttpPost]
-    public async Task<IActionResult> GenerateToken([FromBody] LoginViewModel model)
+    public async Task<IActionResult> CreateToken(LoginViewModel model)
     {
+
+      //sawait CreateUsersAsync();
+
       if (ModelState.IsValid)
       {
-        var user = await _userManager.FindByEmailAsync(model.Email);
+        var user = await _userManager.FindByEmailAsync(model.Username);
 
         if (user != null)
         {
@@ -54,7 +57,7 @@ namespace Asp2017.Server.RestAPI
 
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+            new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
 
@@ -66,13 +69,15 @@ namespace Asp2017.Server.RestAPI
             claims,
             expires: DateTime.Now.AddMinutes(30),
             signingCredentials: creds);
-
-            return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+            
+            return Ok(new { access_token = new JwtSecurityTokenHandler().WriteToken(token), expiration = (int)TimeSpan.FromMinutes(10).TotalSeconds });
           }
         }
       }
 
       return BadRequest("Could not create token");
     }
+
+
   }
 }

@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Http, URLSearchParams, RequestOptions, RequestMethod, RequestOptionsArgs, Headers } from '@angular/http';
 import { APP_BASE_HREF } from '@angular/common';
 import { ORIGIN_URL } from './constants/baseurl.constants';
-import { IUser } from '../models/User';
+import { User } from '../models/User';
 import { TransferHttp } from '../../modules/transfer-http/transfer-http';
 import { Observable } from 'rxjs/Observable';
 

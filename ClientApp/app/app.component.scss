@@ -53,6 +53,22 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
     padding: 10px 0;
   }
 }
+.login-container {
+  max-width: 330px;
+  padding: 15px;
+
+  .form-login {
+    margin: 0 0 10px 20px;
+
+    .checkbox {
+      margin-bottom: 10px;
+    }
+
+    input {
+      margin-bottom: 10px;
+    }
+  }
+}
 
 ul { padding: 10px 25px; }
 ul li { padding: 5px 0; }
